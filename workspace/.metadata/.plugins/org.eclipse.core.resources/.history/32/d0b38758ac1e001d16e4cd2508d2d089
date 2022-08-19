@@ -1,0 +1,33 @@
+package pjs.md.service;
+
+import java.util.List;
+
+import pjs.md.domain.Board;
+
+public class BoardServiceImpl implements BoardService {
+
+	@Override
+	public List<Board> listS() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insertB(Board board) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deleteB(long seq) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void updateB(long seq) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

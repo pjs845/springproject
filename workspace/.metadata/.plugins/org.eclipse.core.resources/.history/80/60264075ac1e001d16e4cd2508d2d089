@@ -1,0 +1,39 @@
+package pjs.md.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import pjs.md.domain.Board;
+import pjs.md.mapper.BoardMapper;
+
+public class BoardServiceImpl implements BoardService {
+
+	@Autowired
+	private BoardMapper boardMapper;
+	
+	@Override
+	public List<Board> listS() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insertB(Board board) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deleteB(long seq) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void updateB(long seq) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

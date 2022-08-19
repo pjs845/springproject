@@ -1,0 +1,5 @@
+package pjs.md.service;
+
+public interface AddressService {
+
+}

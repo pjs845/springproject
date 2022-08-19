@@ -1,0 +1,5 @@
+package pjs.md.controller;
+
+public class AddressController {
+
+}

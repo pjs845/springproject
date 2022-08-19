@@ -1,0 +1,11 @@
+package pjs.md.mapper;
+
+import java.util.List;
+
+import pjs.md.domain.Board;
+public interface BoardMapper {
+	List<Board> list();
+	void insert(Board board);
+	void delete(long seq);
+	void update(long seq);
+}

@@ -1,0 +1,5 @@
+package pjs.md.domain;
+
+public class Board2Vo {
+
+}

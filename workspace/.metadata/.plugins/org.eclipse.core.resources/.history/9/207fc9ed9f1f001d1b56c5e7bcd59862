@@ -1,0 +1,5 @@
+package pjs.md.mapper;
+
+public interface Board2Mapper {
+
+}

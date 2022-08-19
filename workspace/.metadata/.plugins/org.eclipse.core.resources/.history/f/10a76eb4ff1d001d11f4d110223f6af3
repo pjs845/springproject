@@ -1,0 +1,23 @@
+package pjs.md.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import pjs.md.service.AddressService;
+
+@Log4j
+@AllArgsConstructor
+@Controller
+@RequestMapping("/address")
+public class AddressController {
+	private AddressService addressService; //Spring 4.3~: AutoInjection(with @AllArgsConstructor)
+	
+	// ¹Ì¼Ç!!
+	
+	//list(){}
+	//write(){}
+	//write(Address address){}
+	//delete(){}
+}
