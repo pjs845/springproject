@@ -13,5 +13,5 @@ public interface Board2Service {
 	Board2 selectlist(long seq);
 	void write(Board2 board2, MultipartFile file);
 	void remove(long seq);
-	void edit(Board2 board2);
+	void edit(Board2 board2, MultipartFile file);
 }

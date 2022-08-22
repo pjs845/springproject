@@ -40,6 +40,53 @@ public class Board2ServiceImpl implements Board2Service {
 	@Override
 	public void write(Board2 board2, MultipartFile file) {
 		String ofname = file.getOriginalFilename();
+		log.info("#ofname: " + ofname);
+		if(ofname != null) ofname = ofname.trim();
+	    if(ofname.length() != 0) {
+	    	int idx = ofname.lastIndexOf(".");
+			String ofheader = ofname.substring(0, idx);
+			String ext = ofname.substring(idx);
+			long ms = System.currentTimeMillis();
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(ofheader);
+			sb.append("_");
+			sb.append(ms);
+			sb.append(ext);
+			String saveFileName = sb.toString();//a.jpg
+			
+			long fsize = file.getSize();
+			log.info("#board2----------1-1 : " + board2);
+			//log.info("#ofname: " + ofname + ", saveFileName: " + saveFileName + ", fsize: " + fsize);
+			board2.setFname(saveFileName);
+			board2.setOfname(ofname);
+			board2.setFsize(fsize);
+			
+			log.info("#board2----------1-2 : " + board2);
+			boolean flag = writeFile(board2, file, saveFileName);
+			
+			if(flag) {
+		       log.info("#업로드 성공");
+		    }else {
+		       log.info("#업로드 실패");
+		    }
+		    String url =  Path.FILE_STORE + saveFileName;
+	    }else {
+	    	board2.setFname("");
+			board2.setOfname("파일이 없습니다.");
+			board2.setFsize(0L);
+	    	board2Mapper.insert(board2);
+	    }
+	}
+
+	@Override
+	public void remove(long seq) {
+		board2Mapper.delete(seq);
+	}
+
+	@Override
+	public void edit(Board2 board2, MultipartFile file) {
+		String ofname = file.getOriginalFilename();
 		int idx = ofname.lastIndexOf(".");
 		String ofheader = ofname.substring(0, idx);
 		String ext = ofname.substring(idx);
@@ -60,23 +107,6 @@ public class Board2ServiceImpl implements Board2Service {
 		
 		log.info("#board2----------1 : " + board2);
 		boolean flag = writeFile(board2, file, saveFileName);
-		
-		if(flag) {
-	       log.info("#업로드 성공");
-	    }else {
-	       log.info("#업로드 실패");
-	    }
-	    String url =  Path.FILE_STORE + saveFileName;
-	}
-
-	@Override
-	public void remove(long seq) {
-		board2Mapper.delete(seq);
-
-	}
-
-	@Override
-	public void edit(Board2 board2) {
 		board2Mapper.update(board2);
 
 	}

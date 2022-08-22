@@ -2,6 +2,8 @@ package pjs.md.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import pjs.md.domain.Board2;
 import pjs.md.domain.Board2ResultList;
+import pjs.md.fileset.Path;
 import pjs.md.service.Board2Service;
 import soo.md.domain.Board;
 import soo.md.domain.BoardListResult;
@@ -116,13 +119,22 @@ public class Board2Controller {
 		return mv;
 	}
 	@PostMapping("update.do")
-	public String update(Board2 board) {
-		boardService.edit(board);
+	public String update(Board2 board, MultipartFile file) {
+		boardService.edit(board, file);
 		return "redirect:list.do";
 	}
 	@GetMapping("del.do")
 	public String delete(long seq) {
 		boardService.remove(seq);
 		return "redirect:list.do";
+	}
+	@GetMapping("download.do")
+	public ModelAndView download(String fname) {
+		File file = new File(Path.FILE_STORE, fname);
+		if(file.exists()) {
+			return new ModelAndView("fileDownloadView", "downloadFile", file);
+		}else {
+			return new ModelAndView("redirect:list.do");
+		}
 	}
 }
