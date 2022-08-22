@@ -1,0 +1,1 @@
+alter table BOARD add(FNAME varchar2(30) default '', OFNAME varchar2(30) default '', FSIZE number default 0);
