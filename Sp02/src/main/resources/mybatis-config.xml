@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+  	<typeAlias alias="Address" type="pjs.md.domain.Address"/>
+  	<typeAlias alias="Board" type="pjs.md.domain.Board"/>
+  	<typeAlias alias="Board2" type="pjs.md.domain.Board2"/>
+  	<typeAlias alias="Board2Vo" type="pjs.md.domain.Board2Vo"/>
+  </typeAliases>
+  <!-- 
+  <mappers>
+    <mapper resource="pjs/md/mapper/AddressMapper.xml"/>
+    <mapper resource="pjs/md/mapper/BoardMapper.xml"/>
+    <mapper resource="pjs/md/mapper/Board2Mapper.xml"/>
+    <mapper resource="soo/md/mapper/AddressAjaxMapper.xml"/>
+  </mappers>
+   -->
+</configuration>
