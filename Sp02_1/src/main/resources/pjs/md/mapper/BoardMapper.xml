@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="pjs.md.mapper.BoardMapper">
+  	<select id="listall" resultType="long">
+	  select max(ROWNUM) from BOARD
+	</select>
+  	<select id="list" parameterType="Map" resultType="Board">
+  	<![CDATA[
+  		select * from (select rownum numrow, aa.* from (select * from BOARD order by seq desc) aa )
+	    where numrow >= #{pageStart} and numrow < #{perPageNum}
+  	]]>
+	</select>
+	<select id="select" parameterType="long" resultType="Board">
+	  select * from BOARD where SEQ=#{seq}
+	</select>  
+	<select  id="insert" parameterType="Board">
+		insert into BOARD values(BOARD_SEQ.nextval, #{writer}, #{email}, #{subject}, #{content}, SYSDATE)
+	</select>
+	<delete id="delete" parameterType="long">
+		delete from BOARD where SEQ=#{seq}
+	</delete>
+	<update id="update" parameterType="Board">
+		update BOARD set WRITER=#{writer}, EMAIL=#{email}, SUBJECT=#{subject},
+		CONTENT=#{content} where SEQ=#{seq}
+	</update>
+  </mapper>
+  
