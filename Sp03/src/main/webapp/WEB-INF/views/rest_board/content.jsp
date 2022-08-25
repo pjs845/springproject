@@ -32,10 +32,17 @@
 				$("#email").append(data.email);
 				$("#subject").append(data.subject);
 				$("#content").append(data.content);
-				html += "<form id='del' action='delete/"+data.seq+"' method='GET'>"; 
+				html += "<form id='del' action='delete/"+data.seq+"' method='POST'>"; 
+				html += " <input type='hidden' name='_method' value='DELETE'/>";
 				html += "</form>";		    	
 		    	$("#form").append(html);
-			
+		    	var link = "";
+		    	link += "<a href='update.do?seq="+data.seq+"'>수정</a>";
+		    	link += "&nbsp;&nbsp;|"; 
+		   	  	link += "<a href=\"javascript:$('#del').submit()\" >삭제</a>"
+		   		link += "&nbsp;&nbsp;|";
+		   	  	link += "<a href='board'>목록</a>";
+		   	  	$("#btnfont").append(link);
 			}
 		});
 	});
@@ -74,12 +81,7 @@
 	</table>
 	
 	<hr width='600' size='2' color='gray' noshade>
-	<font color='gray' size='4' face='휴먼편지체'>
-	<a href='update.do?seq=${board.seq}'>수정</a>
-	 &nbsp;&nbsp;| 
-	<a href="javascript:$('#del').submit()" >삭제</a>
-	 &nbsp;&nbsp;| 
-	<a href='board'>목록</a>
+	<font id="btnfont" color='gray' size='4' face='휴먼편지체'>
 	</font>
 	<hr width='600' size='2' color='gray' noshade>
 </center>

@@ -16,17 +16,65 @@
 		}
 		a { text-decoration:none }
 	</style>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script>
-	    function f(){
-	    	input.email.value = "";
-	    	input.subject.value = "";
-	    	//input.content.innerText = "";
-	    	$("#ta").text("");
-	    	
-	    	input.email.focus();
-	    }
-	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script>
+			$(function(){		
+				var para = document.location.href.split("?");
+				var seq = para[1].substring(para[1].lastIndexOf("=")+1)
+				$.ajax({
+					url: "read/"+seq+".json",
+					type: "GET",
+					success: function(data){
+						if(!data){
+		                    alert("존재하지 않는 data");
+		                    return false;
+		                 }
+						$("#seq").val(data.seq);
+						$("#writer").val(data.writer);
+						$("#email").val(data.email);
+						$("#subject").val(data.subject);
+						$("#content").val(data.content);
+					
+					}
+				});
+				$("#wr").focus();
+				$("#btn").on("click", function(){
+					let jsObj = {seq:$("#seq").val(), writer:$("#writer").val(), email:$("#email").val(), subject:$("#subject").val(), content:$("#content").val()};
+					let jsonData = JSON.stringify(jsObj);
+					$.ajax({
+						url: "update.json", 
+						method: "PUT",
+						contentType: "application/json;charset=utf-8",
+						data: jsonData,
+						success: function(data){
+							alert("ok:"+data);
+							location.href='board';
+						},
+						error: function(error){
+							alert("error:"+error);
+						}
+					});
+				});
+			});
+			function update()
+			   {
+				let jsObj = {seq:$("#seq").val(), writer:$("#writer").val(), email:$("#email").val(), subject:$("#subject").val(), content:$("#content").val()};
+				let jsonData = JSON.stringify(jsObj);
+				$.ajax({
+					url: "update.json", 
+					type: "",
+					contentType: "application/json;charset=utf-8",
+					data: jsonData,
+					success: function(data){
+						alert("ok:"+data);
+						location.href='board';
+					},
+					error: function(error){
+						alert("error:"+error);
+					}
+				});
+		       }
+		</script>
 </head>
 <body>
 <center>
@@ -43,33 +91,33 @@
 </center>
 
 <form name='input' method='post' action='update.do'>
-<input type="hidden" name="seq" value="${board.seq}">
+<input id="seq" type="hidden" name="seq"/>
 <table border='0' width='600' align='center' cellpadding='3' cellspacing='1' bordercolor='gray'>	
 <tr>
    <td width='20%' align='center' >WRITER</td>
    <td>
-      <input name='writer' readonly value='${board.writer}'/>
+      <input id="writer" name='writer' readonly/>
    </td>
 </tr>
 
 <tr>
 	<td align='center'>EMAIL</td>
-	<td><input name='email' value='${board.email}'/></td>
+	<td ><input id="email" name='email'/></td>
 </tr>
 
 <tr>
 	<td align='center'>SUBJECT</td>
-	<td><input name='subject' value='${board.subject}'/></td>
+	<td ><input id="subject" name='subject'/></td>
 </tr>
 			
 <tr>
 	<td align='center'>CONTENT</td>
-	<td><textarea id='ta' name='content' rows='15' cols='70'>${board.content}</textarea></td>
+	<td ><textarea id="content" id='ta' name='content' rows='15' cols='70'></textarea></td>
 </tr>
 <tr>
 	 <td colspan='2' align='center'>
-		<input type='submit' value='수정'>
-		<input type="button" value="다시입력" onclick="f()">
+		<input type='button' value='수정' onclick="update()">
+		<input type="button" value="다시입력" onclick="f()"> 
 	 </td>
 </tr>
 

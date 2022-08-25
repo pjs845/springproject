@@ -72,7 +72,7 @@ public class BoardRestController {
 	}
 	//http://127.0.0.1:8080/rest_board/read.json?na=ÀÌ
 	//(3) Delete (delete)
-	@GetMapping("delete/{seq}")
+	@DeleteMapping("delete/{seq}")
 	public void delete(@PathVariable long seq, HttpServletResponse response) {
 		log.info("#BoardRestController delete() address: " + seq);
 		service.deleteS(seq);
