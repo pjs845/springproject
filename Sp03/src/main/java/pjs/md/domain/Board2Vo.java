@@ -15,4 +15,12 @@ public class Board2Vo {
 	public int getEndRow() {
 		return cp*ps;
 	}
+	String catgo; //for Search 
+	String keyword; //for Search 
+	public String getCatgo() { //for Search
+		return catgo;
+	}
+	public String getKeyword() { //for Search
+		return keyword;
+	}
 }

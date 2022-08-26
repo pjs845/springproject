@@ -114,7 +114,7 @@
     
 </font>
 <hr width='600' size='2' color='gray' noshade>
-<!--      
+    
     <form action="">
       <select name="catgo">
         <option value="subject">제목</option>
@@ -123,7 +123,7 @@
       </select>
       <input type="text" name="keyword" size="40" required="required" /> <button>검색</button>
     </form>  
--->    
+
 </center>
 </body>
 </html>

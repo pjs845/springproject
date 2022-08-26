@@ -9,13 +9,14 @@
 	<h1>
 		Sp03 for Spring MVC Model 홈 한글
 	</h1>
-	<!-- 
+	 
 	<a href="/address/list.do">주소록</a><br/>
 	<a href="/board/list.do?ps=${ps}&cp=1">게시판</a>
 	<a href="/board2/list.do">게시판2</a><br/>
 	<a href="/file/form.do">파일폼</a><br/>
 	<a href="/file/list.do">파일리스트</a><br/><br/>
 	
+	<!-- 
 	<a href="ajax/test01.do">ajax01</a>&nbsp;&nbsp;&nbsp;
 	<a href="ajax/test02.do">ajax02</a>&nbsp;&nbsp;&nbsp;
 	<a href="ajax/test03.do">ajax03</a>&nbsp;&nbsp;&nbsp;

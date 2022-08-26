@@ -24,5 +24,17 @@
    <select id="selectByName" resultType="AjaxBoard" parameterType="String">
       select * from AJAXBOARD where WRITER like '%'||#{writer}||'%' order by WRITER
    </select>
+   
+   <!-- for Search -->
+	<select id="selectPerPageByCatgo" resultType="Board" parameterType="BoardVo">
+	     <![CDATA[
+	     select * from (select ROWNUM rnum, aa.* 
+	     from (select * from AJAXBOARD where ${catgo} like '%'||#{keyword}||'%' order by ${catgo}, SEQ desc) aa)
+	     where rnum>#{startRow} and rnum<=#{endRow}
+	     ]]>
+	</select>
+	<select id="selectCountByCatgo" resultType="long" parameterType="BoardVo">
+	     select nvl(max(ROWNUM), 0) from AJAXBOARD where ${catgo} like '%'||#{keyword}||'%'
+	</select>
   </mapper>
   

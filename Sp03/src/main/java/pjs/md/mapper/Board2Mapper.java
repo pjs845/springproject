@@ -3,15 +3,22 @@ package pjs.md.mapper;
 import java.util.List;
 import java.util.Map;
 
+import pjs.md.domain.AjaxBoard;
 import pjs.md.domain.Board2;
 import pjs.md.domain.Board2Vo;
+import soo.md.domain.Board;
+import soo.md.domain.BoardVo;
 
 public interface Board2Mapper {
-	long allBoard();
-	List<Board2> list(Board2Vo board2Vo);
-	Board2 selectSeq(long seq);
+	List<AjaxBoard> selectPerPage(BoardVo boardVo);
+	Board selectBySeq(long seq);
+	long selectCount();
 	
-	void insert(Board2 board);
+	void insert(Board board);
+	void update(Board board);
 	void delete(long seq);
-	void update(Board2 board);
+	
+	//for Search
+	List<Board> selectPerPageByCatgo(BoardVo boardVo);
+	long selectCountByCatgo(BoardVo boardVo);
 }

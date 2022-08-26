@@ -94,6 +94,120 @@ public class Board2Controller {
 			return mv;
 		}
 	}
+	
+	@GetMapping("list.do") //for Search
+	public ModelAndView list(HttpServletRequest request, HttpSession session, 
+			String catgo, String keyword, String searchModeStr) {
+		String cpStr = request.getParameter("cp");
+		String psStr = request.getParameter("ps");
+		
+		//(1) cp 
+		int cp = 1;
+		if(cpStr == null) {
+			Object cpObj = session.getAttribute("cp");
+			if(cpObj != null) {
+				cp = (Integer)cpObj;
+			}
+		}else {
+			cpStr = cpStr.trim();
+			cp = Integer.parseInt(cpStr);
+		}
+		session.setAttribute("cp", cp);
+		
+		//(2) ps 
+		int ps = 3;
+		if(psStr == null) {
+			Object psObj = session.getAttribute("ps");
+			if(psObj != null) {
+				ps = (Integer)psObj;
+			}
+		}else {
+			psStr = psStr.trim();
+			int psParam = Integer.parseInt(psStr);
+			
+			Object psObj = session.getAttribute("ps");
+			if(psObj != null) {
+				int psSession = (Integer)psObj;
+				if(psSession != psParam) {
+					cp = 1;
+					session.setAttribute("cp", cp);
+				}
+			}else {
+				if(ps != psParam) {
+					cp = 1;
+					session.setAttribute("cp", cp);
+				}
+			}
+			ps = psParam;
+		}
+		session.setAttribute("ps", ps);
+		
+		log.info("#cp: " + cp + ", #ps: " + ps);
+		log.info("#searchModeStr1: " + searchModeStr);
+		log.info("#catgo1: " + catgo);
+		log.info("#keyword1: " + keyword);
+		
+		//(3) catgo 
+		if(catgo == null) {
+			Object catgoObj = session.getAttribute("catgo");
+			if(catgoObj != null) {
+				catgo = (String)catgoObj;
+			}
+		}else {
+			catgo = catgo.trim();
+		}
+		session.setAttribute("catgo", catgo);
+		log.info("#catgo2: " + catgo);
+		
+		//(4) keyword 
+		if(keyword == null) {
+			Object keywordObj = session.getAttribute("keyword");
+			if(keywordObj != null) {
+				keyword = (String)keywordObj;
+			}
+		}else {
+			keyword = keyword.trim();
+		}
+		session.setAttribute("keyword", keyword);
+		log.info("#keyword2: " + keyword);
+		
+		//(5) searchModeStr
+		if(searchModeStr == null) {
+			Object searchModeStrObj = session.getAttribute("searchModeStr");
+			if(searchModeStrObj != null) {
+				searchModeStr = (String)searchModeStrObj;
+			}else {
+				searchModeStr = "F";
+			}
+		}else {
+			searchModeStr = searchModeStr.trim();
+		}
+		session.setAttribute("searchModeStr", searchModeStr);
+		log.info("#searchModeStr2: " + searchModeStr);
+		
+		boolean searchMode = false;
+		if(searchModeStr.equalsIgnoreCase("T")) {
+			searchMode = true;
+		}
+		
+		//(6) ModelAndView 
+		BoardListResult listResult = null;
+		if(!searchMode) {
+			listResult = boardService.getBoardListResult(cp, ps); 
+		}else {
+			listResult = boardService.getBoardListResult(cp, ps, catgo, keyword);//for Search
+		}
+		ModelAndView mv = new ModelAndView("board/list", "listResult", listResult);
+		
+		if(listResult.getList().size() == 0) {
+			if(cp > 1)
+				return new ModelAndView("redirect:list.do?cp="+(cp-1));
+			else 
+				return new ModelAndView("board/list", "listResult", null);
+		}else {
+			return mv;
+		}
+	}
 	@GetMapping("write.do")
 	public String write() {
 		return "board2/write";

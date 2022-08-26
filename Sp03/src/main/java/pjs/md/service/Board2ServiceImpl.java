@@ -16,6 +16,9 @@ import pjs.md.domain.Board2ResultList;
 import pjs.md.domain.Board2Vo;
 import pjs.md.fileset.Path;
 import pjs.md.mapper.Board2Mapper;
+import soo.md.domain.Board;
+import soo.md.domain.BoardListResult;
+import soo.md.domain.BoardVo;
 
 @Log4j
 @AllArgsConstructor
@@ -39,6 +42,14 @@ public class Board2ServiceImpl implements Board2Service {
 		}	
 		List<Board2> list =  board2Mapper.list(board2Vo);
 		return new Board2ResultList(cp, ps, totalPageCount, list, startpaging, endpaging);
+	}
+	@Override
+	Board2ResultList getBoardListResult(int cp, int ps, String catgo, String keyword) {
+		Board2Vo board2Vo = new Board2Vo(cp, ps, catgo, keyword); 
+		long totalCount = board2Mapper.selectCountByCatgo(board2Vo);
+		List<Board> list = board2Mapper.selectPerPageByCatgo(board2Vo); 
+		
+		return new Board2ResultList(cp, totalCount, ps,  list);
 	}
 
 	@Override
