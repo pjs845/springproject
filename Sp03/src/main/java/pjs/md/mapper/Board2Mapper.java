@@ -10,15 +10,15 @@ import soo.md.domain.Board;
 import soo.md.domain.BoardVo;
 
 public interface Board2Mapper {
-	List<AjaxBoard> selectPerPage(BoardVo boardVo);
-	Board selectBySeq(long seq);
-	long selectCount();
+	List<Board2> list(Board2Vo board2Vo);
+	Board2 selectBySeq(long seq);
+	long allBoard();
 	
-	void insert(Board board);
-	void update(Board board);
+	void insert(Board2 board);
+	void update(Board2 board);
 	void delete(long seq);
 	
 	//for Search
-	List<Board> selectPerPageByCatgo(BoardVo boardVo);
-	long selectCountByCatgo(BoardVo boardVo);
+	List<Board2> selectPerPageByCatgo(Board2Vo boardVo);
+	long selectCountByCatgo(Board2Vo boardVo);
 }

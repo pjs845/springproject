@@ -44,17 +44,27 @@ public class Board2ServiceImpl implements Board2Service {
 		return new Board2ResultList(cp, ps, totalPageCount, list, startpaging, endpaging);
 	}
 	@Override
-	Board2ResultList getBoardListResult(int cp, int ps, String catgo, String keyword) {
+	public Board2ResultList getBoardListResult(int cp, int ps, String catgo, String keyword) {
 		Board2Vo board2Vo = new Board2Vo(cp, ps, catgo, keyword); 
-		long totalCount = board2Mapper.selectCountByCatgo(board2Vo);
-		List<Board> list = board2Mapper.selectPerPageByCatgo(board2Vo); 
+		long totalPageCount = board2Mapper.selectCountByCatgo(board2Vo);
+		int endpaging = ((int)Math.ceil((double)cp / (double)5)) * 5;
+		int startpaging = endpaging - 4;
+		int cntpg = 0;
+		cntpg = (int)(totalPageCount/ps);
+		if(totalPageCount % ps != 0) {
+			cntpg++;
+		} 	
+		if (cntpg < endpaging) {
+			endpaging = cntpg;
+		}	
+		List<Board2> list = board2Mapper.selectPerPageByCatgo(board2Vo); 
 		
-		return new Board2ResultList(cp, totalCount, ps,  list);
+		return new Board2ResultList(cp, ps, totalPageCount,  list, startpaging, endpaging);
 	}
 
 	@Override
 	public Board2 selectlist(long seq) {
-		Board2 board = board2Mapper.selectSeq(seq);
+		Board2 board = board2Mapper.selectBySeq(seq);
 		return board;
 	}
 
@@ -102,7 +112,7 @@ public class Board2ServiceImpl implements Board2Service {
 
 	@Override
 	public void remove(long seq) {
-		Board2 board = board2Mapper.selectSeq(seq);
+		Board2 board = board2Mapper.selectBySeq(seq);
 		board2Mapper.delete(seq);
 		String fname = board.getFname();
 		if(fname != null) {
@@ -114,7 +124,7 @@ public class Board2ServiceImpl implements Board2Service {
 	@Override
 	public void edit(Board2 board2, MultipartFile file) {
 		long seq = board2.getSeq();
-		Board2 board = board2Mapper.selectSeq(seq);
+		Board2 board = board2Mapper.selectBySeq(seq);
 		String ofname = file.getOriginalFilename();
 		log.info("#ofname: " + ofname);
 		if(ofname != null) ofname = ofname.trim();

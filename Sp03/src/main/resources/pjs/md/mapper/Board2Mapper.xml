@@ -25,4 +25,16 @@
 		update BOARD set WRITER=#{writer}, EMAIL=#{email}, SUBJECT=#{subject},
 		CONTENT=#{content}, FNAME=#{fname}, OFNAME=#{ofname}, FSIZE=#{fsize} where SEQ=#{seq}
 	</update>
+	
+	<!-- for Search -->
+	<select id="selectPerPageByCatgo" resultType="Board2" parameterType="Board2Vo">
+	     <![CDATA[
+	     select * from (select ROWNUM rnum, aa.* 
+	     from (select * from BOARD where ${catgo} like '%'||#{keyword}||'%' order by ${catgo}, SEQ desc) aa)
+	     where rnum>#{startRow} and rnum<=#{endRow}
+	     ]]>
+	</select>
+	<select id="selectCountByCatgo" resultType="long" parameterType="Board2Vo">
+	     select nvl(max(ROWNUM), 0) from BOARD where ${catgo} like '%'||#{keyword}||'%'
+	</select>
 </mapper>

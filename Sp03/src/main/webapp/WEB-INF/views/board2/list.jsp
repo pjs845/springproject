@@ -115,7 +115,7 @@
 </font>
 <hr width='600' size='2' color='gray' noshade>
     
-    <form action="">
+    <form action="search/list.do">
       <select name="catgo">
         <option value="subject">제목</option>
         <option value="writer">글쓴이</option>

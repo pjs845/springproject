@@ -95,7 +95,7 @@ public class Board2Controller {
 		}
 	}
 	
-	@GetMapping("list.do") //for Search
+	@GetMapping("search/list.do") //for Search
 	public ModelAndView list(HttpServletRequest request, HttpSession session, 
 			String catgo, String keyword, String searchModeStr) {
 		String cpStr = request.getParameter("cp");
@@ -191,19 +191,15 @@ public class Board2Controller {
 		}
 		
 		//(6) ModelAndView 
-		BoardListResult listResult = null;
-		if(!searchMode) {
-			listResult = boardService.getBoardListResult(cp, ps); 
-		}else {
-			listResult = boardService.getBoardListResult(cp, ps, catgo, keyword);//for Search
-		}
-		ModelAndView mv = new ModelAndView("board/list", "listResult", listResult);
+		Board2ResultList listResult = null;
+		listResult = boardService.getBoardListResult(cp, ps, catgo, keyword);//for Search
+		ModelAndView mv = new ModelAndView("board2/list", "listResult", listResult);
 		
 		if(listResult.getList().size() == 0) {
 			if(cp > 1)
 				return new ModelAndView("redirect:list.do?cp="+(cp-1));
 			else 
-				return new ModelAndView("board/list", "listResult", null);
+				return new ModelAndView("board2/list", "listResult", null);
 		}else {
 			return mv;
 		}
