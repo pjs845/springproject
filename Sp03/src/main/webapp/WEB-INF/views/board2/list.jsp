@@ -16,6 +16,18 @@
 		}
 		a { text-decoration:none }
 	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script>
+		$(function(){
+			$("#catgo").val("${catgo}").prop("selected",true);
+			$("#keyword").attr('value',"${keyword}");
+			console.log("${keyword}".length);
+			if("${keyword}".length>0){
+				$("#keyword").attr("disabled",true);
+			}
+			
+		});
+	</script>
 </head>
 <body>
 <center>
@@ -23,7 +35,7 @@
 <hr width='600' size='2' color='gray' noshade>
 <h3> Spring Board ( Spring5 + MyBatis )</h3>
 <font color='gray' size='4' face='휴먼편지체'>
-<a href='../'>인덱스</a>
+<a href='/'>인덱스</a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href='write.do'>글쓰기</a><br/>
 </font>
@@ -115,13 +127,14 @@
 </font>
 <hr width='600' size='2' color='gray' noshade>
     
-    <form action="search/list.do">
-      <select name="catgo">
+    <form action="/board2/search/list.do">
+      <select id="catgo" name="catgo">
         <option value="subject">제목</option>
         <option value="writer">글쓴이</option>
         <option value="content">내용</option>
       </select>
-      <input type="text" name="keyword" size="40" required="required" /> <button>검색</button>
+      <input id="keyword" type="text" name="keyword" size="40" required="required" /><button>검색</button>
+      <button type="button" onclick="location.href='/board2/list.do';">초기화</button>
     </form>  
 
 </center>

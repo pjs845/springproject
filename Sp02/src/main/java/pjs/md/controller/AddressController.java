@@ -29,7 +29,7 @@ public class AddressController {
 	// ¹Ì¼Ç!!
 	
 	//@RequestMapping(value="/list.do", method=RequestMethod.GET)
-	@GetMapping("/list.do")
+	@GetMapping("/list")
 	public ModelAndView list(){
 		List<Address> list = addressService.listS();
 		//List<Address> list = new java.util.ArrayList<Address>();

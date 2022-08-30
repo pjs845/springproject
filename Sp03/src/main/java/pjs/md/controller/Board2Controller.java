@@ -39,6 +39,8 @@ public class Board2Controller {
 	public ModelAndView list(HttpServletRequest request, HttpSession session) {
 		String cpStr = request.getParameter("cp");
 		String psStr = request.getParameter("ps");
+		session.setAttribute("catgo", "subject");
+		session.setAttribute("keyword", null);
 		
 		//(1) cp 
 		int cp = 1;
